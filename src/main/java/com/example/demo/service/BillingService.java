@@ -85,6 +85,7 @@ public class BillingService {
         bill.setCashierId(TokenData.getUserId());
         bill.setTotalAmount(billingProducts.stream().mapToDouble(BillingProducts::getTotalPrice).sum());
         bill.setCurrency(Constants.CURRENCY_RUPEES);
+
         return billRepository.save(bill);
     }
 
