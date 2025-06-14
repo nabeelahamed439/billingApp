@@ -1,0 +1,14 @@
+package com.example.demo.config;
+
+public class Constants {
+
+    public static final String MERCHANT = "MERCHANT";
+    public static final String SUPER_ADMIN = "SUPER_ADMIN";
+    public static final String CASHIER = "CASHIER";
+    public static final String CURRENCY_RUPEES = "RUPEES";
+    public static final String PENDING = "PENDING";
+    public static final String COMPLETED = "COMPLETED";
+
+
+
+}
