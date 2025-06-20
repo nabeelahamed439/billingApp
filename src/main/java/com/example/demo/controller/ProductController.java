@@ -26,7 +26,7 @@ public class ProductController {
     @PutMapping("update/{productCode}")
     @PreAuthorize("hasRole('MERCHANT')")
     public Product updateProduct(@PathVariable String productCode, @RequestBody ProductRequest request) {
-        return productService.updateProduct(productCode, request);
+        return productService.updateProduct(request);
     }
 
     @DeleteMapping("delete/{productCode}")
@@ -47,7 +47,7 @@ public class ProductController {
     @PreAuthorize("hasRole('MERCHANT')")
     public List<Product> bulkUpdateProducts(@RequestBody List<ProductRequest> requests) {
         return requests.stream()
-                .map(request -> productService.updateProduct(request.getProductCode(), request))
+                .map(productService::updateProduct)
                 .toList();
     }
 

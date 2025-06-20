@@ -61,16 +61,18 @@ public class ProductService {
         return productRepository.findBySubCategory(subCategory);
     }
 
-    public Product updateProduct(String productCode, ProductRequest request) {
-        Product product = getProductByCode(productCode);
+    public Product updateProduct(ProductRequest request) {
+        Product product = getProductByCode(request.getProductCode());
         if (request.getProductName() != null) product.setProductName(request.getProductName());
         if (request.getCategory() != null) product.setCategory(request.getCategory());
         if (request.getSubCategory() != null) product.setSubCategory(request.getSubCategory());
         if (request.getPrice() != null) product.setPrice(request.getPrice());
         if (request.getQuantity() != null){
-            product.setLastAddedQuantity(request.getQuantity());
+            product.setLastAddedQuantity(
+                    request.getStockUpdateType().equalsIgnoreCase(Constants.REMOVE_STOCK)
+                            ? -Math.abs(request.getQuantity()) : request.getQuantity());
             product.setLastAddedDate(LocalDateTime.now());
-            product.setAvailableStock(product.getAvailableStock()+request.getQuantity());
+            product.setAvailableStock(product.getAvailableStock()+product.getLastAddedQuantity());
         }
         if (request.getIsAvailable() != null) product.setIsAvailable(request.getIsAvailable());
         return productRepository.save(product);

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.exception.BadRequestException;
 
 import java.security.cert.CertificateException;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -44,6 +45,7 @@ public class AuthenticationService {
         //Password from request and encrypted password from db is checked with the help of passwordEncoder set in authentication provided
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
         User user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new BadRequestException("User Not Found","User Not Found"));
+        user.setLastLogin(LocalDateTime.now());
         user.setLoginCount(user.getLoginCount() + 1);
         userRepository.save(user);
         String jwtToken = jwtService.generateToken(user);

@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.example.demo.config.Constants;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,9 @@ public class ProductRequest {
 
     @JsonProperty("available_stock")
     private Double availableStock;
+
+    @JsonProperty("stock_update_type")
+    private String stockUpdateType = Constants.ADD_STOCK;
 
     @JsonProperty("unit")
     private String unit;

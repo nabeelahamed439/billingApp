@@ -26,15 +26,21 @@ public class Bill {
     @Column(name = "cashier_id")
     private String cashierId;
 
+    @Column(name = "purchased_amount")
+    private Double purchasedAmount;
+
     @Column(name = "total_amount")
     private Double totalAmount;
 
     @Column(name = "currency")
     private String currency;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<BillingProducts> billingProducts;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinColumn(name = "customer_fk")
+    private Customer customer;
 
     @Column(name = "billing_date", updatable = false)
     @PrePersist

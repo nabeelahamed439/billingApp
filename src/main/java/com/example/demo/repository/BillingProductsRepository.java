@@ -9,13 +9,8 @@ import java.util.Optional;
 
 @Repository
 public interface BillingProductsRepository extends JpaRepository<BillingProducts,Long> {
-
-
     boolean existsByBillId(String billId);
-
     List<BillingProducts> findByCashierIdAndBillingStatus(String cashierId, String status);
-
     BillingProducts findByProductCodeAndCashierIdAndBillingStatus(String productCode, String cashierId, String status);
-
     List<BillingProducts> findByBillId(String billId);
 }
